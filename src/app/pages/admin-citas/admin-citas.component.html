@@ -1,0 +1,142 @@
+<section class="admin-citas-page">
+  <div class="container py-5">
+    <div class="admin-hero mb-4">
+      <div class="row g-4 align-items-center">
+        <div class="col-lg-8">
+          <span class="admin-badge">Panel administrativo</span>
+          <h1 class="admin-title mt-3 mb-3">Administración de citas</h1>
+          <p class="admin-text mb-0">
+            Panel para revisar citas registradas y cambiar su estado entre
+            pendiente, confirmada o cancelada desde una sola vista administrativa.
+          </p>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="hero-side-card">
+            <div class="hero-side-item">
+              <span>Total de citas</span>
+              <strong>{{ citas().length }}</strong>
+            </div>
+            <div class="hero-side-item">
+              <span>Acción principal</span>
+              <strong>Actualizar estado</strong>
+            </div>
+            <div class="hero-side-item">
+              <span>Vista</span>
+              <strong>Administrativa</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-card">
+      <div class="table-card-header mb-4">
+        <h2 class="h4 fw-bold mb-2">Control de citas registradas</h2>
+        <p class="text-secondary mb-0">
+          Desde aquí puedes revisar el paciente, doctor, fecha, hora y cambiar el
+          estado de cada cita.
+        </p>
+      </div>
+
+      @if (cargando()) {
+        <div class="loading-box">
+          <div class="spinner-border text-primary mb-3" role="status" aria-hidden="true"></div>
+          <p class="mb-0">Cargando citas...</p>
+        </div>
+      } @else {
+        @if (citas().length > 0) {
+          <div class="table-responsive">
+            <table class="table custom-table align-middle">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Paciente</th>
+                  <th>Doctor</th>
+                  <th>Fecha</th>
+                  <th>Hora</th>
+                  <th>Estado</th>
+                  <th class="text-end">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (cita of citas(); track cita.id_cita) {
+                  <tr>
+                    <td>
+                      <span class="id-pill">#{{ cita.id_cita }}</span>
+                    </td>
+
+                    <td>
+                      <div class="cell-main">{{ cita.paciente_nombre }}</div>
+                    </td>
+
+                    <td>
+                      <div class="cell-main">Dr(a). {{ cita.doctor_nombre }} {{ cita.doctor_apellido }}</div>
+                    </td>
+
+                    <td>
+                      <div class="cell-main">{{ cita.fecha }}</div>
+                    </td>
+
+                    <td>
+                      <div class="cell-main">{{ cita.hora }}</div>
+                    </td>
+
+                    <td>
+                      <span
+                        class="badge-soft"
+                        [ngClass]="{
+                          'bg-warning-subtle text-warning-emphasis': cita.estado === 'Pendiente',
+                          'bg-success-subtle text-success-emphasis': cita.estado === 'Confirmada',
+                          'bg-danger-subtle text-danger-emphasis': cita.estado === 'Cancelada'
+                        }"
+                      >
+                        {{ cita.estado }}
+                      </span>
+                    </td>
+
+                    <td>
+                      <div class="actions-wrap">
+                        <button
+                          class="btn btn-sm btn-success action-btn"
+                          type="button"
+                          (click)="cambiarEstado(cita.id_cita, 'Confirmada')"
+                        >
+                          Confirmar
+                        </button>
+
+                        <button
+                          class="btn btn-sm btn-outline-warning action-btn"
+                          type="button"
+                          (click)="cambiarEstado(cita.id_cita, 'Pendiente')"
+                        >
+                          Pendiente
+                        </button>
+
+                        <button
+                          class="btn btn-sm btn-outline-danger action-btn"
+                          type="button"
+                          (click)="cambiarEstado(cita.id_cita, 'Cancelada')"
+                        >
+                          Cancelar
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        } @else {
+          <div class="empty-state">
+            <div class="empty-icon">+</div>
+            <h2 class="h4 fw-bold mb-2">No hay citas registradas</h2>
+            <p class="text-secondary mb-0">
+              Cuando existan citas en la base de datos aparecerán en este panel.
+            </p>
+          </div>
+        }
+      }
+    </div>
+  </div>
+</section>

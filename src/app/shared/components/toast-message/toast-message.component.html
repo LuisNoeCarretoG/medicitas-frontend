@@ -1,0 +1,25 @@
+@if (uiMessage.message(); as message) {
+  <div class="floating-message" [ngClass]="message.type">
+    <div class="message-accent"></div>
+
+    <div class="message-content">
+      <div class="message-title">
+        @if (message.type === 'success') {
+          Operación exitosa
+        } @else if (message.type === 'error') {
+          Ocurrió un error
+        } @else {
+          Información
+        }
+      </div>
+
+      <div class="message-text">
+        {{ message.text }}
+      </div>
+    </div>
+
+    <button class="message-close" type="button" (click)="uiMessage.clear()">
+      ×
+    </button>
+  </div>
+}

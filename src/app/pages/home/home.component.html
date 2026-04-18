@@ -1,0 +1,177 @@
+<section class="home-page">
+  <div class="container py-5">
+
+    <section class="hero-panel mb-5">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-7">
+          <span class="hero-badge">Sistema de citas médicas</span>
+
+          <h1 class="hero-title mt-3 mb-3">
+            Agenda tu cita médica de forma rápida, segura y organizada
+          </h1>
+
+          <p class="hero-text mb-4">
+            MediCitas es una SPA desarrollada con Angular, Node.js y MySQL para
+            gestionar doctores, especialidades, citas, contacto y seguimiento
+            desde una sola interfaz clara e intuitiva.
+          </p>
+
+          <div class="d-flex flex-wrap gap-3 hero-actions">
+            <a class="btn btn-light btn-lg px-4" routerLink="/doctores">
+              Ver doctores
+            </a>
+            <a class="btn btn-outline-light btn-lg px-4" routerLink="/agendar">
+              Agendar cita
+            </a>
+          </div>
+
+          <div class="hero-mini-info mt-4">
+            <div class="mini-pill">Atención organizada</div>
+            <div class="mini-pill">Especialidades médicas</div>
+            <div class="mini-pill">Seguimiento de citas</div>
+          </div>
+        </div>
+
+        <div class="col-lg-5">
+          <div class="summary-card">
+            <h2 class="h4 fw-bold mb-4">Resumen rápido</h2>
+
+            <div class="summary-item">
+              <span class="summary-label">Doctores registrados</span>
+              <strong class="summary-value">{{ totalDoctores() }}</strong>
+            </div>
+
+            <div class="summary-item">
+              <span class="summary-label">Especialidades disponibles</span>
+              <strong class="summary-value">4</strong>
+            </div>
+
+            <div class="summary-item">
+              <span class="summary-label">Módulos activos</span>
+              <strong class="summary-value summary-text">Frontend + API</strong>
+            </div>
+
+            <div class="summary-note mt-3">
+              Sistema listo para consultar médicos, registrar citas y administrar información básica.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features-section mb-5">
+      <div class="section-heading mb-4">
+        <h2>¿Qué puedes hacer en MediCitas?</h2>
+        <p>
+          El sistema está diseñado para facilitar el acceso a la información médica
+          y mejorar la organización de citas dentro de una sola aplicación.
+        </p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-4">
+          <article class="info-card h-100">
+            <div class="info-icon">01</div>
+            <h3>Consultar doctores</h3>
+            <p>
+              Explora el directorio médico, revisa datos básicos y consulta la especialidad
+              de cada doctor antes de agendar.
+            </p>
+          </article>
+        </div>
+
+        <div class="col-md-4">
+          <article class="info-card h-100">
+            <div class="info-icon">02</div>
+            <h3>Registrar citas</h3>
+            <p>
+              Usa el formulario reactivo para agendar citas con validaciones,
+              mensajes de error y captura ordenada de datos.
+            </p>
+          </article>
+        </div>
+
+        <div class="col-md-4">
+          <article class="info-card h-100">
+            <div class="info-icon">03</div>
+            <h3>Enviar contacto</h3>
+            <p>
+              El sistema incluye un formulario de contacto para enviar mensajes
+              sin usar alertas tradicionales del navegador.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="specialties-section mb-5">
+      <div class="section-heading mb-4">
+        <h2>Especialidades disponibles</h2>
+        <p>
+          Estas son algunas de las áreas médicas incluidas actualmente en el sistema.
+        </p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-6 col-xl-3">
+          <div class="specialty-card h-100">
+            <h3>Medicina General</h3>
+            <p>Consultas generales, revisiones periódicas y seguimiento básico de salud.</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-xl-3">
+          <div class="specialty-card h-100">
+            <h3>Pediatría</h3>
+            <p>Atención médica para niñas, niños y adolescentes con control preventivo.</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-xl-3">
+          <div class="specialty-card h-100">
+            <h3>Dermatología</h3>
+            <p>Diagnóstico y tratamiento de condiciones relacionadas con la piel.</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-xl-3">
+          <div class="specialty-card h-100">
+            <h3>Cardiología</h3>
+            <p>Revisión, control y seguimiento de la salud cardiovascular del paciente.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="steps-section">
+      <div class="section-heading mb-4">
+        <h2>¿Cómo funciona?</h2>
+        <p>
+          El flujo del sistema está pensado para que el usuario encuentre un médico y agende
+          su cita en pocos pasos.
+        </p>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-box">
+          <span class="step-number">1</span>
+          <h3>Consulta el directorio</h3>
+          <p>Revisa los doctores disponibles y sus especialidades.</p>
+        </div>
+
+        <div class="step-box">
+          <span class="step-number">2</span>
+          <h3>Selecciona una cita</h3>
+          <p>Elige fecha, hora y motivo de consulta desde el formulario.</p>
+        </div>
+
+        <div class="step-box">
+          <span class="step-number">3</span>
+          <h3>Da seguimiento</h3>
+          <p>Consulta tus registros y administra la información capturada.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</section>

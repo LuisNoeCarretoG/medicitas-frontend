@@ -1,0 +1,70 @@
+<section class="doctors-page">
+  <div class="container py-5">
+    <div class="doctors-hero mb-4">
+      <div class="row g-4 align-items-end">
+        <div class="col-lg-8">
+          <span class="doctors-badge">Directorio médico</span>
+          <h1 class="doctors-title mt-3 mb-2">Doctores disponibles</h1>
+          <p class="doctors-text mb-0">
+            Consulta especialistas, revisa información general y filtra por especialidad
+            para encontrar más rápido al doctor indicado.
+          </p>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="filter-card">
+            <label class="form-label fw-semibold mb-2">Filtrar por especialidad</label>
+            <select
+              class="form-select custom-select"
+              [(ngModel)]="especialidadSeleccionada"
+              (change)="aplicarFiltro()"
+            >
+              <option value="todas">Todas</option>
+              @for (item of especialidades(); track item.id_especialidad) {
+                <option [value]="item.nombre">{{ item.nombre }}</option>
+              }
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    @if (cargando()) {
+      <div class="loading-box">
+        <div class="spinner-border text-primary mb-3" role="status" aria-hidden="true"></div>
+        <p class="mb-0">Cargando doctores...</p>
+      </div>
+    } @else {
+      @if (doctores().length > 0) {
+        <div class="results-bar mb-4">
+          <div class="results-count">
+            <strong>{{ doctores().length }}</strong> doctor(es) encontrados
+          </div>
+          <div class="results-filter">
+            Especialidad:
+            <span>{{ especialidadSeleccionada === 'todas' ? 'Todas' : especialidadSeleccionada }}</span>
+          </div>
+        </div>
+
+        <div class="row g-4">
+          @for (doctor of doctores(); track doctor.id_doctor) {
+            <div class="col-md-6 col-xl-4">
+              <app-doctor-card
+                [doctor]="doctor"
+                (reservar)="irAgendar($event)"
+              ></app-doctor-card>
+            </div>
+          }
+        </div>
+      } @else {
+        <div class="empty-state">
+          <div class="empty-icon">+</div>
+          <h2 class="h4 fw-bold mb-2">No hay doctores para ese filtro</h2>
+          <p class="text-secondary mb-0">
+            Prueba con otra especialidad o vuelve a mostrar la lista completa.
+          </p>
+        </div>
+      }
+    }
+  </div>
+</section>

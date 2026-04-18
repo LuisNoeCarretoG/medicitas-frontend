@@ -1,0 +1,81 @@
+<nav class="navbar navbar-expand-lg custom-navbar sticky-top">
+  <div class="container">
+    <a class="navbar-brand brand" routerLink="/">
+      <span class="brand-mark"></span>
+      MediCitas
+    </a>
+
+    <button
+      class="navbar-toggler custom-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#mainNav"
+      aria-controls="mainNav"
+      aria-expanded="false"
+      aria-label="Abrir navegación"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="mainNav" class="collapse navbar-collapse">
+      <div class="navbar-nav ms-auto gap-lg-2 align-items-lg-center">
+        <a
+          class="nav-link custom-link"
+          routerLink="/"
+          [routerLinkActiveOptions]="{ exact: true }"
+          routerLinkActive="active-link"
+        >
+          Inicio
+        </a>
+
+        <a
+          class="nav-link custom-link"
+          routerLink="/doctores"
+          routerLinkActive="active-link"
+        >
+          Doctores
+        </a>
+
+        <a
+          class="nav-link custom-link"
+          routerLink="/agendar"
+          routerLinkActive="active-link"
+        >
+          Agendar
+        </a>
+
+        <a
+          class="nav-link custom-link"
+          routerLink="/mis-citas"
+          routerLinkActive="active-link"
+        >
+          Mis citas
+        </a>
+
+        <a
+          class="nav-link custom-link"
+          routerLink="/contacto"
+          routerLinkActive="active-link"
+        >
+          Contacto
+        </a>
+
+        <a
+          class="nav-link custom-link"
+          routerLink="/admin/doctores"
+          routerLinkActive="active-link"
+        >
+          Admin doctores
+        </a>
+
+        <a
+          class="nav-link custom-link"
+          routerLink="/admin/citas"
+          routerLinkActive="active-link"
+        >
+          Admin citas
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>

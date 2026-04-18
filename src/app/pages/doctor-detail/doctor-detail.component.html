@@ -1,0 +1,85 @@
+<section class="doctor-detail-page">
+  <div class="container py-5">
+
+    @if (cargando()) {
+      <div class="loading-box">
+        <div class="spinner-border text-primary mb-3" role="status" aria-hidden="true"></div>
+        <p class="mb-0">Cargando detalle del doctor...</p>
+      </div>
+    } @else {
+      @if (doctor(); as item) {
+        <div class="detail-card overflow-hidden">
+          <div class="row g-0">
+            <div class="col-lg-5">
+              <div class="detail-image-wrap">
+                <img
+                  class="detail-image"
+                  [src]="item.foto"
+                  [alt]="'Foto de ' + item.nombre + ' ' + item.apellido"
+                >
+                <span class="detail-badge">{{ item.especialidad_nombre }}</span>
+              </div>
+            </div>
+
+            <div class="col-lg-7">
+              <div class="detail-content">
+                <a class="back-link" routerLink="/doctores">← Volver al directorio</a>
+
+                <h1 class="detail-title">Dr(a). {{ item.nombre }} {{ item.apellido }}</h1>
+                <p class="detail-subtitle">{{ item.especialidad_descripcion }}</p>
+
+                <div class="detail-grid">
+                  <div class="detail-info-box">
+                    <span class="info-label">Consultorio</span>
+                    <span class="info-value">{{ item.consultorio }}</span>
+                  </div>
+
+                  <div class="detail-info-box">
+                    <span class="info-label">Horario</span>
+                    <span class="info-value">{{ item.horario }}</span>
+                  </div>
+
+                  <div class="detail-info-box">
+                    <span class="info-label">Correo</span>
+                    <span class="info-value">{{ item.correo }}</span>
+                  </div>
+
+                  <div class="detail-info-box">
+                    <span class="info-label">Teléfono</span>
+                    <span class="info-value">{{ item.telefono }}</span>
+                  </div>
+
+                  <div class="detail-info-box full-width">
+                    <span class="info-label">Experiencia</span>
+                    <span class="info-value">{{ item.experiencia_anios }} años de experiencia</span>
+                  </div>
+                </div>
+
+                <div class="detail-actions">
+                  <a class="btn btn-outline-primary btn-lg" routerLink="/doctores">
+                    Ver más doctores
+                  </a>
+                  <button
+                    class="btn btn-primary btn-lg"
+                    type="button"
+                    (click)="agendarConDoctor(item.id_doctor)"
+                  >
+                    Agendar con este doctor
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      } @else {
+        <div class="empty-state">
+          <div class="empty-icon">!</div>
+          <h2 class="h4 fw-bold mb-2">No se encontró el doctor</h2>
+          <p class="text-secondary mb-3">Revisa la URL o vuelve a la lista general.</p>
+          <a class="btn btn-primary" routerLink="/doctores">Ir a doctores</a>
+        </div>
+      }
+    }
+
+  </div>
+</section>

@@ -1,0 +1,99 @@
+<section class="admin-doctores-page">
+  <div class="container py-5">
+    <div class="admin-hero mb-4">
+      <div class="row g-4 align-items-center">
+        <div class="col-lg-8">
+          <span class="admin-badge">Panel administrativo</span>
+          <h1 class="admin-title mt-3 mb-3">Administración de doctores</h1>
+          <p class="admin-text mb-0">
+            Vista administrativa para consultar los médicos registrados, revisar sus
+            datos principales y tener un control general del directorio del sistema.
+          </p>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="hero-side-card">
+            <div class="hero-side-item">
+              <span>Total de doctores</span>
+              <strong>{{ doctores().length }}</strong>
+            </div>
+            <div class="hero-side-item">
+              <span>Tipo de vista</span>
+              <strong>Administrativa</strong>
+            </div>
+            <div class="hero-side-item">
+              <span>Datos mostrados</span>
+              <strong>Directorio general</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-card">
+      <div class="table-card-header mb-4">
+        <h2 class="h4 fw-bold mb-2">Listado de médicos registrados</h2>
+        <p class="text-secondary mb-0">
+          Aquí puedes revisar el identificador, nombre, especialidad, consultorio,
+          horario y correo de cada doctor.
+        </p>
+      </div>
+
+      @if (cargando()) {
+        <div class="loading-box">
+          <div class="spinner-border text-primary mb-3" role="status" aria-hidden="true"></div>
+          <p class="mb-0">Cargando doctores...</p>
+        </div>
+      } @else {
+        @if (doctores().length > 0) {
+          <div class="table-responsive">
+            <table class="table custom-table align-middle">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Doctor</th>
+                  <th>Especialidad</th>
+                  <th>Consultorio</th>
+                  <th>Horario</th>
+                  <th>Correo</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (doctor of doctores(); track doctor.id_doctor) {
+                  <tr>
+                    <td>
+                      <span class="id-pill">#{{ doctor.id_doctor }}</span>
+                    </td>
+                    <td>
+                      <div class="cell-main">Dr(a). {{ doctor.nombre }} {{ doctor.apellido }}</div>
+                    </td>
+                    <td>
+                      <div class="cell-muted">{{ doctor.especialidad_nombre }}</div>
+                    </td>
+                    <td>
+                      <div class="cell-main">{{ doctor.consultorio }}</div>
+                    </td>
+                    <td>
+                      <div class="cell-main">{{ doctor.horario }}</div>
+                    </td>
+                    <td>
+                      <div class="cell-email">{{ doctor.correo }}</div>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        } @else {
+          <div class="empty-state">
+            <div class="empty-icon">+</div>
+            <h2 class="h4 fw-bold mb-2">No hay doctores registrados</h2>
+            <p class="text-secondary mb-0">
+              Cuando existan médicos en la base de datos aparecerán en este listado.
+            </p>
+          </div>
+        }
+      }
+    </div>
+  </div>
+</section>

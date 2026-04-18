@@ -1,0 +1,41 @@
+<div class="doctor-card h-100">
+  <div class="doctor-image-wrap">
+    <img
+      class="doctor-image"
+      [src]="doctor.foto"
+      [alt]="'Foto de ' + doctor.nombre + ' ' + doctor.apellido"
+    >
+    <span class="doctor-badge">{{ doctor.especialidad_nombre }}</span>
+  </div>
+
+  <div class="doctor-card-body">
+    <h3 class="doctor-name">Dr(a). {{ doctor.nombre }} {{ doctor.apellido }}</h3>
+    <p class="doctor-description">{{ doctor.especialidad_descripcion }}</p>
+
+    <div class="doctor-info-list">
+      <div class="doctor-info-item">
+        <span class="info-label">Consultorio</span>
+        <span class="info-value">{{ doctor.consultorio }}</span>
+      </div>
+
+      <div class="doctor-info-item">
+        <span class="info-label">Horario</span>
+        <span class="info-value">{{ doctor.horario }}</span>
+      </div>
+
+      <div class="doctor-info-item">
+        <span class="info-label">Experiencia</span>
+        <span class="info-value">{{ doctor.experiencia_anios }} años</span>
+      </div>
+    </div>
+
+    <div class="doctor-actions">
+      <a class="btn btn-outline-primary w-100" [routerLink]="['/doctor', doctor.id_doctor]">
+        Ver detalle
+      </a>
+      <button class="btn btn-primary w-100" type="button" (click)="onReservar()">
+        Agendar
+      </button>
+    </div>
+  </div>
+</div>

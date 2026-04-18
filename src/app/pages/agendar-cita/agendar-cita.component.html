@@ -1,0 +1,229 @@
+<section class="agendar-page">
+  <div class="container py-5">
+    <div class="agendar-hero mb-4">
+      <div class="row g-4 align-items-center">
+        <div class="col-lg-8">
+          <span class="agendar-badge">Formulario reactivo</span>
+          <h1 class="agendar-title mt-3 mb-3">Agendar cita médica</h1>
+          <p class="agendar-text mb-0">
+            Registra una cita médica usando Angular con <strong>ReactiveFormsModule</strong>,
+            <strong>FormBuilder</strong> y <strong>Validators</strong>, además de
+            mensajes de error visibles para cada campo.
+          </p>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="hero-side-card">
+            <div class="hero-side-item">
+              <span>Doctores disponibles</span>
+              <strong>{{ doctores().length }}</strong>
+            </div>
+            <div class="hero-side-item">
+              <span>Tipo de formulario</span>
+              <strong>Reactivo</strong>
+            </div>
+            <div class="hero-side-item">
+              <span>Acción principal</span>
+              <strong>POST cita</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-wrapper">
+      <div class="form-header mb-4">
+        <h2 class="h4 fw-bold mb-2">Completa los datos del paciente</h2>
+        <p class="text-secondary mb-0">
+          Todos los campos son obligatorios y cuentan con validaciones específicas.
+        </p>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+        <div class="row g-4">
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Nombre del paciente</label>
+            <input
+              type="text"
+              class="form-control custom-control"
+              formControlName="nombrePaciente"
+              placeholder="Ej. María Fernanda López"
+            >
+
+            @if (isInvalid('nombrePaciente')) {
+              <div class="form-error">
+                @if (hasError('nombrePaciente', 'required')) {
+                  <span>El nombre es obligatorio.</span>
+                }
+                @if (hasError('nombrePaciente', 'minlength')) {
+                  <span>Debe tener al menos 5 caracteres.</span>
+                }
+                @if (hasError('nombrePaciente', 'maxlength')) {
+                  <span>No debe exceder 80 caracteres.</span>
+                }
+              </div>
+            }
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Correo electrónico</label>
+            <input
+              type="email"
+              class="form-control custom-control"
+              formControlName="correoPaciente"
+              placeholder="ejemplo@correo.com"
+            >
+
+            @if (isInvalid('correoPaciente')) {
+              <div class="form-error">
+                @if (hasError('correoPaciente', 'required')) {
+                  <span>El correo es obligatorio.</span>
+                }
+                @if (hasError('correoPaciente', 'email')) {
+                  <span>Debes capturar un correo válido.</span>
+                }
+                @if (hasError('correoPaciente', 'maxlength')) {
+                  <span>No debe exceder 120 caracteres.</span>
+                }
+              </div>
+            }
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Teléfono</label>
+            <input
+              type="text"
+              class="form-control custom-control"
+              formControlName="telefonoPaciente"
+              placeholder="10 dígitos"
+            >
+
+            @if (isInvalid('telefonoPaciente')) {
+              <div class="form-error">
+                @if (hasError('telefonoPaciente', 'required')) {
+                  <span>El teléfono es obligatorio.</span>
+                }
+                @if (hasError('telefonoPaciente', 'pattern')) {
+                  <span>El teléfono solo debe contener 10 dígitos.</span>
+                }
+                @if (hasError('telefonoPaciente', 'minlength')) {
+                  <span>Debe tener al menos 10 caracteres.</span>
+                }
+              </div>
+            }
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Doctor</label>
+            <select
+              class="form-select custom-control"
+              formControlName="idDoctor"
+            >
+              <option [value]="0">Selecciona un doctor</option>
+              @for (doctor of doctores(); track doctor.id_doctor) {
+                <option [value]="doctor.id_doctor">
+                  Dr(a). {{ doctor.nombre }} {{ doctor.apellido }} - {{ doctor.especialidad_nombre }}
+                </option>
+              }
+            </select>
+
+            @if (isInvalid('idDoctor')) {
+              <div class="form-error">
+                @if (hasError('idDoctor', 'required')) {
+                  <span>Debes seleccionar un doctor.</span>
+                }
+                @if (hasError('idDoctor', 'min')) {
+                  <span>Selecciona una opción válida.</span>
+                }
+                @if (hasError('idDoctor', 'max')) {
+                  <span>El identificador del doctor no es válido.</span>
+                }
+              </div>
+            }
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Fecha</label>
+            <input
+              type="date"
+              class="form-control custom-control"
+              formControlName="fecha"
+              [min]="fechaMinima"
+            >
+
+            @if (isInvalid('fecha')) {
+              <div class="form-error">
+                @if (hasError('fecha', 'required')) {
+                  <span>La fecha es obligatoria.</span>
+                }
+                @if (hasError('fecha', 'minlength')) {
+                  <span>La fecha debe tener un formato correcto.</span>
+                }
+                @if (hasError('fecha', 'maxlength')) {
+                  <span>La fecha no debe exceder el formato permitido.</span>
+                }
+              </div>
+            }
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Hora</label>
+            <input
+              type="time"
+              class="form-control custom-control"
+              formControlName="hora"
+            >
+
+            @if (isInvalid('hora')) {
+              <div class="form-error">
+                @if (hasError('hora', 'required')) {
+                  <span>La hora es obligatoria.</span>
+                }
+                @if (hasError('hora', 'minlength')) {
+                  <span>La hora debe tener un formato válido.</span>
+                }
+                @if (hasError('hora', 'maxlength')) {
+                  <span>La hora no debe exceder el formato permitido.</span>
+                }
+              </div>
+            }
+          </div>
+
+          <div class="col-12">
+            <label class="form-label fw-semibold">Motivo de la consulta</label>
+            <textarea
+              rows="4"
+              class="form-control custom-control custom-textarea"
+              formControlName="motivo"
+              placeholder="Describe brevemente el motivo de la cita"
+            ></textarea>
+
+            @if (isInvalid('motivo')) {
+              <div class="form-error">
+                @if (hasError('motivo', 'required')) {
+                  <span>El motivo es obligatorio.</span>
+                }
+                @if (hasError('motivo', 'minlength')) {
+                  <span>Debe tener al menos 10 caracteres.</span>
+                }
+                @if (hasError('motivo', 'maxlength')) {
+                  <span>No debe exceder 250 caracteres.</span>
+                }
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="submit-bar mt-4">
+          <button class="btn btn-primary btn-lg submit-btn" type="submit" [disabled]="enviando()">
+            @if (enviando()) {
+              Guardando...
+            } @else {
+              Guardar cita
+            }
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

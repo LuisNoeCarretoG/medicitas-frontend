@@ -1,0 +1,133 @@
+<section class="mis-citas-page">
+  <div class="container py-5">
+    <div class="mis-citas-hero mb-4">
+      <div class="row g-4 align-items-center">
+        <div class="col-lg-8">
+          <span class="mis-citas-badge">Seguimiento de citas</span>
+          <h1 class="mis-citas-title mt-3 mb-3">Mis citas</h1>
+          <p class="mis-citas-text mb-0">
+            Consulta el historial de citas registradas, revisa su información y actualiza
+            el estado cuando sea necesario. En esta vista se usa <strong>NgClass</strong>
+            para mostrar visualmente el estado de cada cita.
+          </p>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="hero-side-card">
+            <div class="hero-side-item">
+              <span>Total de citas</span>
+              <strong>{{ citas().length }}</strong>
+            </div>
+            <div class="hero-side-item">
+              <span>Vista</span>
+              <strong>Tabla dinámica</strong>
+            </div>
+            <div class="hero-side-item">
+              <span>Acción</span>
+              <strong>Actualizar estado</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-card">
+      <div class="table-card-header mb-4">
+        <h2 class="h4 fw-bold mb-2">Listado de citas registradas</h2>
+        <p class="text-secondary mb-0">
+          Aquí puedes revisar información del paciente, doctor, fecha, hora, motivo y estado actual.
+        </p>
+      </div>
+
+      @if (cargando()) {
+        <div class="loading-box">
+          <div class="spinner-border text-primary mb-3" role="status" aria-hidden="true"></div>
+          <p class="mb-0">Cargando citas...</p>
+        </div>
+      } @else {
+        @if (citas().length > 0) {
+          <div class="table-responsive">
+            <table class="table custom-table align-middle">
+              <thead>
+                <tr>
+                  <th>Paciente</th>
+                  <th>Doctor</th>
+                  <th>Especialidad</th>
+                  <th>Fecha</th>
+                  <th>Hora</th>
+                  <th>Motivo</th>
+                  <th>Estado</th>
+                  <th class="text-end">Acción</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (cita of citas(); track cita.id_cita) {
+                  <tr>
+                    <td>
+                      <div class="cell-main">{{ cita.paciente_nombre }}</div>
+                    </td>
+
+                    <td>
+                      <div class="cell-main">Dr(a). {{ cita.doctor_nombre }} {{ cita.doctor_apellido }}</div>
+                    </td>
+
+                    <td>
+                      <div class="cell-muted">{{ cita.especialidad_nombre }}</div>
+                    </td>
+
+                    <td>
+                      <div class="cell-main">{{ cita.fecha }}</div>
+                    </td>
+
+                    <td>
+                      <div class="cell-main">{{ cita.hora }}</div>
+                    </td>
+
+                    <td>
+                      <div class="motivo-cell">{{ cita.motivo }}</div>
+                    </td>
+
+                    <td>
+                      <span
+                        class="badge-soft"
+                        [ngClass]="{
+                          'bg-warning-subtle text-warning-emphasis': cita.estado === 'Pendiente',
+                          'bg-success-subtle text-success-emphasis': cita.estado === 'Confirmada',
+                          'bg-danger-subtle text-danger-emphasis': cita.estado === 'Cancelada'
+                        }"
+                      >
+                        {{ cita.estado | estadoLabel }}
+                      </span>
+                    </td>
+
+                    <td class="text-end">
+                      @if (cita.estado !== 'Cancelada') {
+                        <button
+                          class="btn btn-sm btn-outline-danger action-btn"
+                          type="button"
+                          (click)="cancelar(cita.id_cita)"
+                        >
+                          Cancelar
+                        </button>
+                      } @else {
+                        <span class="cancelled-label">Sin acciones</span>
+                      }
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        } @else {
+          <div class="empty-state">
+            <div class="empty-icon">+</div>
+            <h2 class="h4 fw-bold mb-2">No hay citas registradas</h2>
+            <p class="text-secondary mb-0">
+              Cuando registres una cita desde el formulario aparecerá aquí.
+            </p>
+          </div>
+        }
+      }
+    </div>
+  </div>
+</section>

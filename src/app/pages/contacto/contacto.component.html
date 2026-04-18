@@ -1,0 +1,177 @@
+<section class="contact-page">
+  <div class="container py-5">
+    <div class="contact-hero mb-4">
+      <div class="row g-4 align-items-center">
+        <div class="col-lg-8">
+          <span class="contact-badge">Formulario template</span>
+          <h1 class="contact-title mt-3 mb-3">Contacto</h1>
+          <p class="contact-text mb-0">
+            Esta vista usa <strong>template-driven forms</strong> con
+            <strong>FormsModule</strong>, <strong>[(ngModel)]</strong> y
+            validaciones visibles directamente en la interfaz.
+          </p>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="hero-side-card">
+            <div class="hero-side-item">
+              <span>Tipo de formulario</span>
+              <strong>Template</strong>
+            </div>
+            <div class="hero-side-item">
+              <span>Acción principal</span>
+              <strong>POST contacto</strong>
+            </div>
+            <div class="hero-side-item">
+              <span>Binding principal</span>
+              <strong>[(ngModel)]</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-wrapper">
+      <div class="form-header mb-4">
+        <h2 class="h4 fw-bold mb-2">Envíanos un mensaje</h2>
+        <p class="text-secondary mb-0">
+          Completa el formulario y envía tu mensaje al sistema.
+        </p>
+      </div>
+
+      <form #contactForm="ngForm" (ngSubmit)="onSubmit(contactForm)" novalidate>
+        <div class="row g-4">
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Nombre</label>
+            <input
+              type="text"
+              class="form-control custom-control"
+              name="nombre"
+              [(ngModel)]="contacto.nombre"
+              #nombre="ngModel"
+              required
+              minlength="4"
+              maxlength="80"
+              placeholder="Tu nombre completo"
+            >
+
+            @if (nombre.touched && nombre.invalid) {
+              <div class="form-error">
+                @if (nombre.errors?.['required']) {
+                  <span>El nombre es obligatorio.</span>
+                }
+                @if (nombre.errors?.['minlength']) {
+                  <span>Debe tener al menos 4 caracteres.</span>
+                }
+                @if (nombre.errors?.['maxlength']) {
+                  <span>No debe exceder 80 caracteres.</span>
+                }
+              </div>
+            }
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Correo</label>
+            <input
+              type="email"
+              class="form-control custom-control"
+              name="correo"
+              [(ngModel)]="contacto.correo"
+              #correo="ngModel"
+              required
+              email
+              maxlength="120"
+              placeholder="ejemplo@correo.com"
+            >
+
+            @if (correo.touched && correo.invalid) {
+              <div class="form-error">
+                @if (correo.errors?.['required']) {
+                  <span>El correo es obligatorio.</span>
+                }
+                @if (correo.errors?.['email']) {
+                  <span>Debes capturar un correo válido.</span>
+                }
+                @if (correo.errors?.['maxlength']) {
+                  <span>No debe exceder 120 caracteres.</span>
+                }
+              </div>
+            }
+          </div>
+
+          <div class="col-12">
+            <label class="form-label fw-semibold">Asunto</label>
+            <input
+              type="text"
+              class="form-control custom-control"
+              name="asunto"
+              [(ngModel)]="contacto.asunto"
+              #asunto="ngModel"
+              required
+              minlength="5"
+              maxlength="120"
+              placeholder="Escribe el asunto"
+            >
+
+            @if (asunto.touched && asunto.invalid) {
+              <div class="form-error">
+                @if (asunto.errors?.['required']) {
+                  <span>El asunto es obligatorio.</span>
+                }
+                @if (asunto.errors?.['minlength']) {
+                  <span>Debe tener al menos 5 caracteres.</span>
+                }
+                @if (asunto.errors?.['maxlength']) {
+                  <span>No debe exceder 120 caracteres.</span>
+                }
+              </div>
+            }
+          </div>
+
+          <div class="col-12">
+            <label class="form-label fw-semibold">Mensaje</label>
+            <textarea
+              rows="5"
+              class="form-control custom-control custom-textarea"
+              name="mensaje"
+              [(ngModel)]="contacto.mensaje"
+              #mensaje="ngModel"
+              required
+              minlength="10"
+              maxlength="400"
+              placeholder="Escribe tu mensaje"
+            ></textarea>
+
+            @if (mensaje.touched && mensaje.invalid) {
+              <div class="form-error">
+                @if (mensaje.errors?.['required']) {
+                  <span>El mensaje es obligatorio.</span>
+                }
+                @if (mensaje.errors?.['minlength']) {
+                  <span>Debe tener al menos 10 caracteres.</span>
+                }
+                @if (mensaje.errors?.['maxlength']) {
+                  <span>No debe exceder 400 caracteres.</span>
+                }
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="submit-bar mt-4">
+          <button
+            class="btn btn-primary btn-lg submit-btn"
+            type="submit"
+            [disabled]="contactForm.invalid || enviando()"
+          >
+            @if (enviando()) {
+              Enviando...
+            } @else {
+              Enviar mensaje
+            }
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
