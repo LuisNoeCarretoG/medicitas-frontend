@@ -14,7 +14,7 @@
               <div class="detail-image-wrap">
                 <img
                   class="detail-image"
-                  [src]="item.foto"
+                  [src]="getDoctorImage(item)"
                   [alt]="'Foto de ' + item.nombre + ' ' + item.apellido"
                 >
                 <span class="detail-badge">{{ item.especialidad_nombre }}</span>
