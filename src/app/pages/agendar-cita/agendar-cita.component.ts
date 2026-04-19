@@ -23,7 +23,8 @@ export class AgendarCitaComponent {
   readonly doctores = signal<Doctor[]>([]);
   readonly enviando = signal(false);
 
-  readonly fechaMinima = new Date().toISOString().split('T')[0];
+  readonly fechaMinima = this.getFechaLocalHoy();
+  horaMinima = '00:00';
 
   readonly form = this.fb.group({
     nombrePaciente: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(80)]],
@@ -47,6 +48,26 @@ export class AgendarCitaComponent {
         this.form.patchValue({ idDoctor: doctorId });
       }
     });
+  }
+
+  private getFechaLocalHoy(): string {
+    const hoy = new Date();
+    const anio = hoy.getFullYear();
+    const mes = String(hoy.getMonth() + 1).padStart(2, '0');
+    const dia = String(hoy.getDate()).padStart(2, '0');
+    return `${anio}-${mes}-${dia}`;
+  }
+
+  private getHoraActual(): string {
+    const ahora = new Date();
+    const horas = String(ahora.getHours()).padStart(2, '0');
+    const minutos = String(ahora.getMinutes()).padStart(2, '0');
+    return `${horas}:${minutos}`;
+  }
+
+  onFechaChange(): void {
+    const fechaSeleccionada = this.form.get('fecha')?.value;
+    this.horaMinima = fechaSeleccionada === this.fechaMinima ? this.getHoraActual() : '00:00';
   }
 
   getField(name: string) {
@@ -83,6 +104,7 @@ export class AgendarCitaComponent {
           hora: '',
           motivo: ''
         });
+        this.horaMinima = '00:00';
         this.enviando.set(false);
       },
       error: () => {
