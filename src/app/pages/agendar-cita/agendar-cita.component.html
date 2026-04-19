@@ -149,6 +149,7 @@
               class="form-control custom-control"
               formControlName="fecha"
               [min]="fechaMinima"
+              (change)="onFechaChange()"
             >
 
             @if (isInvalid('fecha')) {
@@ -162,6 +163,9 @@
                 @if (hasError('fecha', 'maxlength')) {
                   <span>La fecha no debe exceder el formato permitido.</span>
                 }
+                @if (hasError('fecha', 'fechaPasada')) {
+                  <span>No puedes seleccionar una fecha anterior a hoy.</span>
+                }
               </div>
             }
           </div>
@@ -172,6 +176,7 @@
               type="time"
               class="form-control custom-control"
               formControlName="hora"
+              [min]="horaMinima"
             >
 
             @if (isInvalid('hora')) {
@@ -184,6 +189,9 @@
                 }
                 @if (hasError('hora', 'maxlength')) {
                   <span>La hora no debe exceder el formato permitido.</span>
+                }
+                @if (hasError('hora', 'horaPasada')) {
+                  <span>Si seleccionas hoy, no puedes elegir una hora anterior a la actual.</span>
                 }
               </div>
             }

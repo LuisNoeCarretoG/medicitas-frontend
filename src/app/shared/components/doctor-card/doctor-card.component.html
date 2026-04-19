@@ -2,7 +2,17 @@
   <div class="doctor-image-wrap">
     <img
       class="doctor-image"
-      [src]="doctor.foto"
+      [src]="
+        doctor.especialidad_nombre?.toLowerCase() === 'cardiología'
+          ? 'assets/doctores/cardiologia.png'
+          : doctor.especialidad_nombre?.toLowerCase() === 'pediatría'
+          ? 'assets/doctores/pediatria.png'
+          : doctor.especialidad_nombre?.toLowerCase() === 'dermatología'
+          ? 'assets/doctores/dermatologia.png'
+          : doctor.especialidad_nombre?.toLowerCase() === 'medicina general'
+          ? 'assets/doctores/medicina-general.png'
+          : doctor.foto
+      "
       [alt]="'Foto de ' + doctor.nombre + ' ' + doctor.apellido"
     >
     <span class="doctor-badge">{{ doctor.especialidad_nombre }}</span>

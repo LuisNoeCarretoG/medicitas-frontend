@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg custom-navbar sticky-top">
   <div class="container">
-    <a class="navbar-brand brand" routerLink="/">
+    <a class="navbar-brand brand" routerLink="/" (click)="cerrarMenu()">
       <span class="brand-mark"></span>
       MediCitas
     </a>
@@ -8,22 +8,26 @@
     <button
       class="navbar-toggler custom-toggler"
       type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#mainNav"
+      (click)="toggleMenu()"
       aria-controls="mainNav"
-      aria-expanded="false"
+      [attr.aria-expanded]="menuAbierto()"
       aria-label="Abrir navegación"
     >
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div id="mainNav" class="collapse navbar-collapse">
-      <div class="navbar-nav ms-auto gap-lg-2 align-items-lg-center">
+    <div
+      id="mainNav"
+      class="collapse navbar-collapse"
+      [class.show]="menuAbierto()"
+    >
+      <div class="navbar-nav ms-auto gap-lg-2 align-items-lg-center nav-mobile-wrap">
         <a
           class="nav-link custom-link"
           routerLink="/"
           [routerLinkActiveOptions]="{ exact: true }"
           routerLinkActive="active-link"
+          (click)="cerrarMenu()"
         >
           Inicio
         </a>
@@ -32,6 +36,7 @@
           class="nav-link custom-link"
           routerLink="/doctores"
           routerLinkActive="active-link"
+          (click)="cerrarMenu()"
         >
           Doctores
         </a>
@@ -40,6 +45,7 @@
           class="nav-link custom-link"
           routerLink="/agendar"
           routerLinkActive="active-link"
+          (click)="cerrarMenu()"
         >
           Agendar
         </a>
@@ -48,6 +54,7 @@
           class="nav-link custom-link"
           routerLink="/mis-citas"
           routerLinkActive="active-link"
+          (click)="cerrarMenu()"
         >
           Mis citas
         </a>
@@ -56,6 +63,7 @@
           class="nav-link custom-link"
           routerLink="/contacto"
           routerLinkActive="active-link"
+          (click)="cerrarMenu()"
         >
           Contacto
         </a>
@@ -64,6 +72,7 @@
           class="nav-link custom-link"
           routerLink="/admin/doctores"
           routerLinkActive="active-link"
+          (click)="cerrarMenu()"
         >
           Admin doctores
         </a>
@@ -72,6 +81,7 @@
           class="nav-link custom-link"
           routerLink="/admin/citas"
           routerLinkActive="active-link"
+          (click)="cerrarMenu()"
         >
           Admin citas
         </a>
