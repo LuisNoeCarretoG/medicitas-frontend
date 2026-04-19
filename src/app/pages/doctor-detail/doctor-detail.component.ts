@@ -57,19 +57,19 @@ export class DoctorDetailComponent {
       .trim();
 
     if (nombreCompleto === 'ana ramirez') {
-      return 'assets/doctores/ana-ramirez.png';
+      return 'assets/doctores/medicina-general.png';
     }
 
     if (nombreCompleto === 'luis gomez') {
-      return 'assets/doctores/luis-gomez.png';
+      return 'assets/doctores/pediatria.png';
     }
 
     if (nombreCompleto === 'maria torres') {
-      return 'assets/doctores/maria-torres.png';
+      return 'assets/doctores/cardiologia.png';
     }
 
     if (nombreCompleto === 'jorge santos') {
-      return 'assets/doctores/jorge-santos.png';
+      return 'assets/doctores/dermatologia.png';
     }
 
     return doctor.foto;
