@@ -48,4 +48,30 @@ export class DoctorDetailComponent {
       queryParams: { doctorId: idDoctor }
     });
   }
+
+  getDoctorImage(doctor: Doctor): string {
+    const nombreCompleto = `${doctor.nombre} ${doctor.apellido}`
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .trim();
+
+    if (nombreCompleto === 'ana ramirez') {
+      return 'assets/doctores/ana-ramirez.png';
+    }
+
+    if (nombreCompleto === 'luis gomez') {
+      return 'assets/doctores/luis-gomez.png';
+    }
+
+    if (nombreCompleto === 'maria torres') {
+      return 'assets/doctores/maria-torres.png';
+    }
+
+    if (nombreCompleto === 'jorge santos') {
+      return 'assets/doctores/jorge-santos.png';
+    }
+
+    return doctor.foto;
+  }
 }
